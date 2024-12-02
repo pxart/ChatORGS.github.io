@@ -4,186 +4,77 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChatGPT 聊天与艺术作品生成</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #000;
-      color: #00ffcc;
-      font-family: 'Arial', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #00ffcc;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
 
-    .container {
-      margin: auto 0;
-      width: 100%;
-      max-width: 700px;
-      background: rgba(10, 10, 10, 0.9);
-      border: 0.5px solid #00ffcc;
-      border-radius: 20px;
-      box-shadow: 0 0 20px #00ffcc;
-      padding: 20px;
-      text-align: center;
-      animation: openAnimation 1.5s ease-out forwards;
-    }
+  .top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8); /* 背景增加透明度，确保内容可读 */
+  }
 
-    @keyframes openAnimation {
-      0% {
-        transform: scale(0);
-        opacity: 0;
-      }
-      50% {
-        transform: scale(1.1);
-        opacity: 0.8;
-      }
-      100% {
-        transform: scale(0.9);
-        opacity: 0.9;
-      }
-    }
+  .top-bar img {
+    width: 107px;
+    height: 30px;
+  }
 
-    .chat-container {
-      margin-top: 20px;
-      max-height: 300px;
-      overflow-y: auto;
-      text-align: left;
-      padding: 0px;
-      background: linear-gradient(45deg, rgba(0, 255, 204, 0.3), rgba(0, 204, 255, 0.3), rgba(255, 0, 255, 0.3));
-      background-size: 400% 400%;
-      animation: fluidGradient 6s ease-in-out infinite;
-      border-radius: 10px;
-    }
+  .container {
+    margin-top: 80px; /* 为顶部内容预留空间 */
+    width: 100%;
+    max-width: 700px;
+    background: rgba(10, 10, 10, 0.9);
+    border: 0.5px solid #00ffcc;
+    border-radius: 20px;
+    box-shadow: 0 0 20px #00ffcc;
+    padding: 20px;
+    text-align: center;
+    animation: openAnimation 1.5s ease-out forwards;
+    overflow: hidden;
+  }
 
-    @keyframes fluidGradient {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
+  .chat-container {
+    margin-top: 20px;
+    max-height: calc(100vh - 200px); /* 动态调整高度，避免遮挡 */
+    overflow-y: auto;
+    text-align: left;
+    padding: 0px;
+    background: linear-gradient(45deg, rgba(0, 255, 204, 0.3), rgba(0, 204, 255, 0.3), rgba(255, 0, 255, 0.3));
+    background-size: 400% 400%;
+    animation: fluidGradient 6s ease-in-out infinite;
+    border-radius: 10px;
+  }
 
-    .chat-message {
-      display: flex;
-      margin: 10px 0;
-      align-items: flex-end;
-    }
-
-    .chat-message img {
-      width: 36px;
-      height: 36px;
-      margin: 0 10px;
-    }
-
-    .chat-bubble {
-      display: inline-block;
-      padding: 7px;
-      border-radius: 15px;
-      max-width: 63%;
-      word-wrap: break-word;
-      background-color: rgba(255, 255, 255, 0.2); /* 半透明白色 */
-      backdrop-filter: blur(5px); /* 磨砂效果 */
-    }
-
-    .user-message {
-      flex-direction: row-reverse;
-    }
-
-    .user-message .chat-bubble {
-      color: #ffffff; /* 用户消息文字为白色 */
-    }
-
-    .bot-message .chat-bubble {
-      color: #ffffff; /* 机器人消息文字为白色 */
-    }
-
-    #chatInput {
-      width: 80%;
-      font-size: 16px;
-      padding: 10px;
-      margin-top: 10px;
-      border: 1px solid #00ffcc;
-      border-radius: 12px;
-      background: #222;
-      color: #fff;
-    }
-
-    #chatSendButton {
-      padding: 10px 15px;
-      margin-top: 10px;
-      background: linear-gradient(to right, #00ffcc, #8200ff);
-      color: #fff;
-      font-size: 16px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-    }
-
-    /* 链接钱包按钮样式 */
-    #connectWalletButton {
-      position: fixed;
-      top: 15px;
-      right: 20px;
-      padding: 10px 15px;
-      font-size: 14px;
-      background: linear-gradient(to right, #00ffcc, #0086ff, #ff00e1);
-      color: #fff;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(255, 126, 95, 0.5);
-      z-index: 1000; /* 确保在页面最前 */
-    }
-
-    #connectWalletButton:hover {
-      background: linear-gradient(to right, #feb47b, #ff7e5f);
-    }
-
-    .logo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 10px auto 30px;
-    }
-
-    .logo img {
-      width: 60px;
-      height: 60px;
-    }
-
-    .bottom-links {
-      position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 30px;
-    }
-
-    .bottom-links img {
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .bottom-links img:hover {
-      transform: scale(1.2);
-    }
-  </style>
-</head>
+  #chatInput,
+  #chatSendButton {
+    margin-top: 10px;
+  }
+</style>
 <body>
-  <a href="file:///Users/shihongwei/Downloads/ORIGINS.pdf" target="_blank" style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
-    <img src="https://raw.githubusercontent.com/pxart/px.github.io/refs/heads/main/logo2.png" alt="Top Logo" style="width: 107px; height: 30px;">
-  </a>
-  <button id="connectWalletButton">链接钱包</button>
+  <div class="top-bar">
+    <a href="file:///Users/shihongwei/Downloads/ORIGINS.pdf" target="_blank">
+      <img src="https://raw.githubusercontent.com/pxart/px.github.io/refs/heads/main/logo2.png" alt="Top Logo">
+    </a>
+    <button id="connectWalletButton">链接钱包</button>
+  </div>
   <div class="container">
     <div class="logo">
       <img src="https://raw.githubusercontent.com/pxart/px.github.io/refs/heads/main/ai.png" alt="Logo">
@@ -200,7 +91,7 @@
       <img src="https://raw.githubusercontent.com/pxart/px.github.io/refs/heads/main/tg.png" alt="Page 2">
     </a>
   </div>
-  <script>
+</body>
     // JavaScript remains unchanged
   </script>
 </body>
