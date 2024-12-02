@@ -1,0 +1,24 @@
+name: Deploy API Key
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up API key endpoint
+      run: |
+        mkdir -p /var/www/api
+        echo "{\"apiKey\":\"${{ secrets.OPENAI_API_KEY }}\"}" > /var/www/api/api-key.json
+
+    - name: Deploy server
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y nginx
+        sudo mv /var/www/api/api-key.json /usr/share/nginx/html/api-key.json
