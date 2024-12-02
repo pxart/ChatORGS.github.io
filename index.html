@@ -78,7 +78,6 @@
     .chat-message img {
       width: 36px;
       height: 36px;
-      border-radius: 50%;
       margin: 0 10px;
     }
 
@@ -89,7 +88,7 @@
       max-width: 63%;
       word-wrap: break-word;
       background-color: rgba(255, 255, 255, 0.2); /* 半透明白色 */
-      backdrop-filter: blur(5px); /* 磨砂效果 */
+      backdrop-filter: blur(5px); /* 磨砂效果 */
     }
 
     .user-message {
@@ -97,11 +96,11 @@
     }
 
     .user-message .chat-bubble {
-      color: #ffffff; /* 用户消息文字为黑色 */
+      color: #ffffff; /* 用户消息文字为黑色 */
     }
 
     .bot-message .chat-bubble {
-      color: #ffffff; /* 机器人消息文字为白色 */
+      color: #ffffff; /* 机器人消息文字为白色 */
     }
 
     #chatInput {
@@ -113,7 +112,6 @@
       border-radius: 12px;
       background: #222;
       color: #fff;
-
     }
 
     #chatSendButton {
@@ -146,16 +144,37 @@
     #connectWalletButton:hover {
       background: linear-gradient(to right, #feb47b, #ff7e5f);
     }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px auto 30px; /* 上方15px，下方20px */
+    }
+
+    .logo img {
+      width: 60px;
+      height: 60px;
+    }
   </style>
 </head>
 <body>
+  <a href="file:///Users/shihongwei/Downloads/ORIGINS.pdf" target="_blank" style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+    <img src="https://raw.githubusercontent.com/pxart/px.github.io/refs/heads/main/logo2.png" alt="Top Logo" style="width: 107px; height: 30px;">
+  </a>
   <button id="connectWalletButton">链接钱包</button>
   <div class="container">
-    <h1>ORIGINSᴮᵉᵗᵃ</h1>
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/pxart/px.github.io/refs/heads/main/ai.png" alt="Logo">
+    </div>
     <div class="chat-container" id="chatContainer"></div>
     <input type="text" id="chatInput" placeholder="Please enter a message..." />
     <button id="chatSendButton">SEND</button>
   </div>
+  <script>
+    // JavaScript remains unchanged
+  </script>
+</body>
 
   <script>
     const chatContainer = document.getElementById('chatContainer');
@@ -165,7 +184,7 @@
 
     const OPENAI_API_KEY = 'sk-svcacct-CJ447E6feVx7S9Bqe4wnI7QtLuNjEdc_cNnB-OWKSD5fQ50T_rOQ7g0ZvJZlsT3BlbkFJfAs_FnR6vTtjYhwKRaj5Ps2kaQM86iNkkkFcXFscqbCsYhnSVJusqiacFMYAA'; // 替换为你的 API Key
     const userAvatar = 'https://via.placeholder.com/40/00ccff?text=U'; // 用户头像
-    const botAvatar = 'https://via.placeholder.com/40/ff00ff?text=AI'; // AI 头像
+    const botAvatar = 'https://raw.githubusercontent.com/pxart/px.github.io/refs/heads/main/ai.png'; // AI 头像
 
     async function sendChatMessage(message) {
       displayChatBubble(message, 'user');
