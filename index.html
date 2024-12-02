@@ -19,6 +19,7 @@
     }
 
     .container {
+      margin: 60px auto 0;
       width: 95%;
       max-width: 480px;
       background: rgba(10, 10, 10, 0.9);
@@ -41,7 +42,7 @@
       }
       100% {
         transform: scale(0.9);
-        opacity:0.9;
+        opacity: 0.9;
       }
     }
 
@@ -96,7 +97,7 @@
     }
 
     .user-message .chat-bubble {
-      color: #ffffff; /* 用户消息文字为黑色 */
+      color: #ffffff; /* 用户消息文字为白色 */
     }
 
     .bot-message .chat-bubble {
@@ -128,8 +129,8 @@
     /* 链接钱包按钮样式 */
     #connectWalletButton {
       position: fixed;
-      top: 10px;
-      right: 10px;
+      top: 15px;
+      right: 20px;
       padding: 10px 15px;
       font-size: 14px;
       background: linear-gradient(to right, #00ffcc, #0086ff, #ff00e1);
@@ -149,17 +150,37 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 10px auto 30px; /* 上方15px，下方20px */
+      margin: 10px auto 30px;
     }
 
     .logo img {
       width: 60px;
       height: 60px;
     }
+
+    .bottom-links {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+    }
+
+    .bottom-links img {
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .bottom-links img:hover {
+      transform: scale(1.2);
+    }
   </style>
 </head>
 <body>
-  <a href="https://raw.githubusercontent.com/pxart/px.github.io/refs/heads/main/logo2.png" target="_blank" style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+  <a href="file:///Users/shihongwei/Downloads/ORIGINS.pdf" target="_blank" style="position: fixed; top: 15px; left: 20px; z-index: 1000;">
     <img src="https://raw.githubusercontent.com/pxart/px.github.io/refs/heads/main/logo2.png" alt="Top Logo" style="width: 107px; height: 30px;">
   </a>
   <button id="connectWalletButton">链接钱包</button>
@@ -170,6 +191,14 @@
     <div class="chat-container" id="chatContainer"></div>
     <input type="text" id="chatInput" placeholder="Please enter a message..." />
     <button id="chatSendButton">SEND</button>
+  </div>
+  <div class="bottom-links">
+    <a href="https://example.com/page1" target="_blank">
+      <img src="https://via.placeholder.com/40?text=1" alt="Page 1">
+    </a>
+    <a href="https://example.com/page2" target="_blank">
+      <img src="https://via.placeholder.com/40?text=2" alt="Page 2">
+    </a>
   </div>
   <script>
     // JavaScript remains unchanged
