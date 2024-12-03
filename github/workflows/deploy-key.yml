@@ -1,4 +1,4 @@
-name: Deploy API Key
+name: Deploy Frontend to GitHub Pages
 
 on:
   push:
@@ -6,19 +6,19 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up API key endpoint
+    - name: Inject API Key
       run: |
-        mkdir -p /var/www/api
-        echo "{\"apiKey\":\"${{ secrets.OPENAI_API_KEY }}\"}" > /var/www/api/api-key.json
+        echo '{ "OPENAI_API_KEY": "${{ secrets.OPENAI_API_KEY }}" }' > api-key.json
 
-    - name: Deploy server
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y nginx
-        sudo mv /var/www/api/api-key.json /usr/share/nginx/html/api-key.json
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .
